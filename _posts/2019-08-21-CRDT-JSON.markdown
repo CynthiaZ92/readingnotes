@@ -1,0 +1,81 @@
+---
+layout: post
+title:  "Reading note -- A Conflict-Free Replicated JSON Datatype"
+date:   2019-08-21 10:40:19 +0200
+categories: reading list
+---
+[Paper source here](https://arxiv.org/abs/1608.03960)
+- Journal: IEEE Transactions on Parallel & Distributed Systems 2017.10
+- Author: [Martin Kleppmann](https://martin.kleppmann.com/), [Alastair R. Beresford](https://www.cl.cam.ac.uk/~arb33/)
+
+### Background:
+- Users of mobile devices expect availability for applications
+- Collaborative work often requires several people to simultaneously edit the same file
+- Common feature: application state needs to be replicated to several devices, each of which may modify the state locally.
+
+### Motivation:
+> - Concurrency control, serializability, would cause the application to become unusable at times of poor network connectivity
+> - If we require that applications work regardless of network availability, we must assume that users can make arbitrary modifications concurrently on different
+ devices, and that any resulting conflicts must be resolved.
+> - The simplest way to resolve conflicts is to discard some modifications when a conflict occurs, however, this approach is undesirable as it incurs data loss
+> - An alternative is to let the user manually resolve the conflict, which is tedious and error-prone, and therefore should be avoided whenever possible.
+
+### Problem:
+> Many applications model their data in a general-purpose storage format such as JSON. This data structure is modified by
+  the application as a result of user input. Such modifications are well understood if performed sequentially on a single copy of the data,
+  but if the data is replicated and modified concurrently on multiple devices, it is unclear what the semantics should be.
+
+### Solution:
+> Define an algotirhm and formla semantics for collaborative, concurrent editing of JSON data structures with automatic conflict resolution.
+
+#### Concurrent Editing Examples
+The paper introduces six common situations for using JSON CRDTs, and it is easy to understand the main idea and strategy for resolving conflict.
+- A multi-value register, not a practical way because the final value is meaningless.
+- Concurrent edits at differetn levels of JSON tree. The conflict resolving strategy is **"no user input should be lost due to conrrent modificaitons"**.
+- Two replicas can concurrently insert the same map key.
+- How to implement a collaborative text editor, by related locations and order.
+- Two replicas can concurrently insert the same map key with different data types.
+- A limitation of the prociple of preserving all user input (future work for the paper).
+
+#### API.
+First the paper informally illustrates the language.
+
+##### Syntax of command lauguage for querying and modifying a document
+- EXPR: constract a *cursor* which identifies a position in the document
+    - doc: the root of the JSON document tree
+    - x: variable
+    - .get(key): selects a key within a map
+    - .idx(n): selects the nth element of an ordered list (idx(0) is a virtual position before the first list element)
+    - keys: returns sets of keys in the map at the current cursor
+    - values: returns the content of the multi-value register at the current cursor
+- CMD
+    - let: sets the value of a local variable
+    - yield: performs network communication
+    - := : modifies the document by writing to a register
+    - insertAfter: modifies the document by placing a new element after the existing list element
+    - delete: removes the element identifies by the cursor
+
+##### Example of programmatically constructing a JSON document
+        doc := {};
+        doc.get("shopping") := [];
+        let head = doc.get("shopping").idx(0);
+        head.insertAfter("eggs");
+        let eggs = doc.get("shopping").idx(1);
+        head.insertAfter("cheese");
+        eggs.insertAfter("milk");
+
+        //Final state:
+        {"shopping": ["cheese", "eggs", "milk"]}
+
+> According to the example, we note that the cursor eggs identifies the list element by identity, not by its index: after the insertion of "cheese", the element "eggs" moves from index 1 to 2, but "milk" is nevertheless inserted after "eggs".
+
+#### Formal semantics (notes TBD)
+
+### Related works:
+- [Operational Transformation](https://en.wikipedia.org/wiki/Operational_transformation)
+- [CRDTs (Confilict-free replicated datatypes)](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type)
+
+### Future work:
+- an on-going practical implementation of the algorithm
+- consider for the limitation mentioned in the 6th example
+- support for a *move* operation
