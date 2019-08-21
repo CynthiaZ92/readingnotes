@@ -69,11 +69,13 @@ First the paper informally illustrates the language.
 
 > According to the example, we note that the cursor eggs identifies the list element by identity, not by its index: after the insertion of "cheese", the element "eggs" moves from index 1 to 2, but "milk" is nevertheless inserted after "eggs".
 
-#### Formal semantics (notes TBD)
+#### Formal semantics (to be completed)
+It is easier to understand the formal semantics following the process:(from the webpage [here](https://github.com/ipfs/research-CRDT/blob/master/research/json-crdt.md))
+![alt text](https://raw.githubusercontent.com/ipfs/research-CRDT/master/research/applying-operations-overview.png "applying operations overview")
 
 ### Related works:
 - [Operational Transformation](https://en.wikipedia.org/wiki/Operational_transformation)
-- [CRDTs (Confilict-free replicated datatypes)](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type)
+- [CRDTs (Conflict-free replicated datatypes)](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type)
 
 ### Future work:
 - an on-going practical implementation of the algorithm
