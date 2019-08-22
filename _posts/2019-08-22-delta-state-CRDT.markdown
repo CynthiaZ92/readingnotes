@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reading note -- A Conflict-Free Replicated JSON Datatype"
+title:  "Reading note -- Delta state replicated data types"
 date:   2019-08-22 10:12:19 +0200
 categories: reading list
 ---
