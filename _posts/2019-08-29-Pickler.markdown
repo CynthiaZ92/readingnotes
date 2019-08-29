@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "Reading note -- Instant Pickles: Generating Object-Oriented Pickler Combinators for Fast and Extensible Serialization"
+date:   2019-08-22 09:30:21 +0200
+categories: reading list
+---
+[Paper source here](https://2013.splashcon.org/details/oopsla-2013-papers/27/Instant-Pickles-Generating-Object-Oriented-Pickler-Combinators-for-Fast-and-Extensible-Serialization), [video](https://www.youtube.com/watch?v=aDIr-D5Lx08)
+- Journal: SPLASH 2013 OOPSLA
+- Author: [Heather Miller](), [Philipp Haller](), [Eugene Burmako](), [Martin Odersky]()
+
+### Background:
+- The demand for interoperability between different services is at an all-time high, and is increasing.
+
+### Motivation:
+> On the JVM, Serialization has long been acknowledged as having a high overhead, with some estimates purporting object serialization to account for 25 - 65% of the cost of remote method invocation, and which go on to observe that the cost of serialization grows with growing object structures up to 50%.
+
+### Problem:
+Many high-performance distributed applications support higher-performance alternative frameworks rather than Java Serialization, but it has the following problems:
+1) weaker or no type safety;
+2) a fixed serialization format;
+3) more restrictions placed on the objects to-be-serialized
+4) only rudimentary language integration
+
+### Solution:
+> Object-oriented picklers and scala/pickling, a framework for their generation either at runtime or at compile time.
+
+#### Basic Usage
+    import scala.pickling._
+    val pickle = obj.pickle
+    val obj2 = pickle.unpickle[Obj]
+
+### Formal definition (TBD)
+
+### Some Related works:
+- [pickler combinators]()
+- [JavaGI]()
+- [Haskell's deriving mechanism]()
+
+### Future work:
+- Further optimize the pickler generation and to extend the gramework with support for closures.
