@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Reading note -- Instant Pickles: Generating Object-Oriented Pickler Combinators for Fast and Extensible Serialization"
-date:   2019-08-22 09:30:21 +0200
+date:   2019-08-29 09:30:21 +0200
 categories: reading list
 ---
 [Paper source here](https://2013.splashcon.org/details/oopsla-2013-papers/27/Instant-Pickles-Generating-Object-Oriented-Pickler-Combinators-for-Fast-and-Extensible-Serialization), [video](https://www.youtube.com/watch?v=aDIr-D5Lx08)
