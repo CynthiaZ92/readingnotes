@@ -1,0 +1,35 @@
+---
+layout: post
+title:  "Reading note -- Verifying Message-Passing Programs with Dependent Behavioural Types"
+date:   2019-09-01 16:30:21 +0200
+categories: reading list
+---
+[Paper source here](http://mrg.doc.ic.ac.uk/publications/verifying-message-passing-programs-with-dependent-behavioural-types/pldi19-preprint.pdf), [video]()
+- Journal: PLDI 2019
+- Author: [Alceste Scalas](),[Nobuko Yoshida](),[Elias Benussi]()
+
+### Problem:
+A typical concurrency bug: a missing or out-of-order communication can cause protocol violations, deadlocks, or livelocks.
+
+### Solution:
+> Step 1: enforcing protocols at compile-time
+- Effpi and lambda^pi-calculus: build upon a concurrent functional calculus for channel-based interaction
+    - Behavioural types
+    - dependent function types
+
+> Step 2: verification of safety/liveness properties
+- Type-Level Model Checking
+    - Compose types/protocols and decide whether they enjoy safety/liveness properties
+    - Transfer behavioural properties of types to programs
+
+#### Examples (A ping-pong system)
+
+### Formal semantics (TBD)
+
+### Evaluations
+- Performance vs. size
+- Memory vs. size
+
+### Some Related works:
+- [pi-calculus]()
+- [Dotty's founcation]()
